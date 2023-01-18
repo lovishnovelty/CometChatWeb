@@ -6,6 +6,7 @@ import { CometChatService } from '../services/cometchat';
 import { ChatUtility } from '../util/chatUtility';
 
 const Messages = () => {
+  const scrollRef = useRef<any>(null);
   const { state, dispatch }: any = useContext(MainContext);
   const cometchatService = new CometChatService();
   const [value, setValue] = useState('');
@@ -19,12 +20,19 @@ const Messages = () => {
             type: 'append_messages',
             payload: ChatUtility.transformSingleMessage(text, 'p8voz'),
           });
+          scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
       },
     });
   }, [state.user]);
 
   const RenderItem = ({ item }: any) => {
+    useEffect(() => {
+      if (scrollRef.current) {
+        scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, [scrollRef]);
+
     const me = item.isSentByMe
       ? {
           alignSelf: 'flex-end',
@@ -57,6 +65,7 @@ const Messages = () => {
             {item.text}
           </div>
         )}
+        <div ref={scrollRef} />
       </>
     );
   };
@@ -67,6 +76,11 @@ const Messages = () => {
       receiverID: state.user.uid,
       message: value,
     });
+    dispatch({
+      type: 'append_messages',
+      payload: { text: value, isSentByMe: true, isTextMessage: true },
+    });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
