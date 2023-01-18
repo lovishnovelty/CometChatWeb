@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 import { CometChat } from '@cometchat-pro/chat';
-import { CometChatUI } from './cometchat-pro-react-ui-kit/CometChatWorkspace/src';
+import { CometChatService } from './services/cometchat';
+
 const authKey = 'f7a9f594219a32a8177d445f037b59f2bfe963f4';
 const uid = 'p8voz';
-const receiverID = '1234';
+
 // const callType = 'VIDEO' | 'AUDIO' | undefined;
 function App() {
   useEffect(() => {
@@ -28,9 +29,22 @@ function App() {
     //   });
   }, []);
 
+  const inputRef = useRef<any>();
   return (
     <div style={{ width: '800px', height: '800px' }}>
-      <CometChatUI />
+      {/* <CometChatUI /> */}
+      <input placeholder="Add session Id" ref={inputRef} />
+      <button
+        onClick={() => {
+          CometChatService.startDirectCall(
+            document.getElementById('callscreen'),
+            inputRef.current.value
+          );
+        }}
+      >
+        Join Call
+      </button>
+      <div id="callscreen" style={{ height: '100vh', width: '100vw' }}></div>
     </div>
   );
 }
