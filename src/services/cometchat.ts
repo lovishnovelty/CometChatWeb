@@ -1,11 +1,19 @@
 import { CometChat } from '@cometchat-pro/chat';
 
 class CometChatService {
-  constructor(parameters: any) {}
+  conversationRequestBuilder: CometChat.ConversationsRequestBuilder;
+  messageRequestBuilder: CometChat.MessagesRequestBuilder;
+  callSettingsBuilder: CometChat.CallSettingsBuilder;
+  userRequestBuilder: CometChat.UsersRequestBuilder;
+  constructor() {
+    this.conversationRequestBuilder =
+      new CometChat.ConversationsRequestBuilder();
+    this.callSettingsBuilder = new CometChat.CallSettingsBuilder();
+    this.messageRequestBuilder = new CometChat.MessagesRequestBuilder();
+    this.userRequestBuilder = new CometChat.UsersRequestBuilder();
+  }
 
   static startDirectCall = (element: any, id: string) => {
-    console.log('id', id);
-
     let sessionID = id;
     let audioOnly = false;
     let defaultLayout = true;
@@ -58,6 +66,11 @@ class CometChatService {
         },
       })
     );
+  };
+
+  getUsers = async () => {
+    const userRequest = this.userRequestBuilder.setLimit(30).build();
+    return await userRequest.fetchNext();
   };
 }
 

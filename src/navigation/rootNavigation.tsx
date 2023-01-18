@@ -1,15 +1,21 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { UserList } from '../screen/userList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserList from '../components/users';
+import { CallingScreen } from '../screen/callingScreen';
+import { ChatScreen } from '../screen/chatScreen';
 
 export const RootNavigation = () => {
   console.log('routes');
 
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<UserList />}></Route>
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<UserList />}></Route>
+          <Route path="/chat" element={<ChatScreen />}></Route>
+          <Route path="/callScreen" element={<CallingScreen />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 };
