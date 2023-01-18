@@ -1,4 +1,6 @@
 import { CometChat } from '@cometchat-pro/chat';
+import { IMessage } from '../interfaces/message';
+import { ChatUtility } from '../util/chatUtility';
 
 class CometChatService {
   conversationRequestBuilder: CometChat.ConversationsRequestBuilder;
@@ -68,9 +70,75 @@ class CometChatService {
     );
   };
 
+  getMessagesByUID = async (userID: string, otherUserID: string) => {
+    let limit = 30;
+    const messageRequest = this.messageRequestBuilder
+      .setLimit(limit)
+      .setUID(otherUserID)
+      .build();
+
+    const messageList = await messageRequest.fetchPrevious().catch((err) => {
+      console.log(err);
+      return [];
+    });
+    return ChatUtility.transformMessages(messageList, userID);
+  };
+
   getUsers = async () => {
     const userRequest = this.userRequestBuilder.setLimit(30).build();
     return await userRequest.fetchNext();
+  };
+
+  sendTextMessage = async ({
+    userID,
+    receiverType = CometChat.RECEIVER_TYPE.USER,
+    receiverID,
+    message,
+  }: {
+    userID: string;
+    receiverType?: string;
+    receiverID: string;
+    message: string;
+  }): Promise<IMessage> => {
+    const textMessage = new CometChat.TextMessage(
+      receiverID,
+      message,
+      receiverType
+    );
+    try {
+      const sentMessage = await CometChat.sendMessage(textMessage);
+      return ChatUtility.transformSingleMessage(sentMessage, userID);
+    } catch (err) {
+      throw 'Failed to send message';
+    }
+  };
+
+  listenForMessage = async ({
+    onTextMessageReceived,
+    listenerID,
+  }: {
+    onTextMessageReceived: (textMessage: CometChat.TextMessage) => void;
+    listenerID: string;
+  }) => {
+    const userId = await localStorage.getItem('userID');
+
+    if (!userId) {
+      console.log('Failed to initialize message listener: User not logged in.');
+      return;
+    }
+
+    CometChat.addMessageListener(
+      listenerID,
+      new CometChat.MessageListener({
+        onTextMessageReceived: onTextMessageReceived,
+        onMediaMessageReceived: (mediaMessage: CometChat.MediaMessage) => {
+          console.log('Media message received successfully', mediaMessage);
+        },
+        onCustomMessageReceived: (customMessage: CometChat.CustomMessage) => {
+          console.log('Custom message received successfully', customMessage);
+        },
+      })
+    );
   };
 }
 
