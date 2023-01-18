@@ -4,8 +4,9 @@ import './App.css';
 
 import { CometChat } from '@cometchat-pro/chat';
 import { CometChatUI } from './cometchat-pro-react-ui-kit/CometChatWorkspace/src';
+import { LoginPage } from './login';
 const authKey = 'f7a9f594219a32a8177d445f037b59f2bfe963f4';
-const uid = 'p8voz';
+const uid = 'nslxa';
 const receiverID = '1234';
 // const callType = 'VIDEO' | 'AUDIO' | undefined;
 function App() {
@@ -30,7 +31,8 @@ function App() {
 
   return (
     <div style={{ width: '800px', height: '800px' }}>
-      <CometChatUI />
+      {/* <CometChatUI /> */}
+      <LoginPage />
     </div>
   );
 }
