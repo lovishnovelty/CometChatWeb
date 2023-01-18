@@ -20,7 +20,10 @@ const UserList = () => {
       const cometchatService = new CometChatService();
       const data: any = await cometchatService.getUsers();
 
-      const res = await cometChat.getMessagesByUID('p8voz', data[0].uid);
+      const res = await cometChat.getMessagesByUID(
+        localStorage.getItem('userID') ?? '',
+        data[0].uid
+      );
 
       dispatch({
         type: 'set_user',
@@ -32,7 +35,10 @@ const UserList = () => {
   }, []);
 
   const getMessages = async (item: any) => {
-    const res = await cometChat.getMessagesByUID('p8voz', item.uid);
+    const res = await cometChat.getMessagesByUID(
+      localStorage.getItem('userID') ?? '',
+      item.uid
+    );
     dispatch({
       type: 'set_user',
       payload: { user: item, messages: res },

@@ -18,7 +18,10 @@ const Messages = () => {
         if (state.user.uid === text.getSender().getUid()) {
           dispatch({
             type: 'append_messages',
-            payload: ChatUtility.transformSingleMessage(text, 'p8voz'),
+            payload: ChatUtility.transformSingleMessage(
+              text,
+              localStorage.getItem('userID') ?? ''
+            ),
           });
           scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
@@ -72,7 +75,7 @@ const Messages = () => {
 
   const sendMessage = async () => {
     await cometchatService.sendTextMessage({
-      userID: 'p8voz',
+      userID: localStorage.getItem('userID') ?? '',
       receiverID: state.user.uid,
       message: value,
     });

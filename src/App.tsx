@@ -1,40 +1,15 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useRef } from 'react';
 
-import { CometChat } from '@cometchat-pro/chat';
+import './App.css';
 import { CometChatService } from './services/cometchat';
 import UserList from './components/users';
 import { MainContext, MainReducer } from './context';
 import Messages from './components/messages';
 
-const authKey = 'f7a9f594219a32a8177d445f037b59f2bfe963f4';
-const uid = 'p8voz';
-
 // const callType = 'VIDEO' | 'AUDIO' | undefined;
 function App() {
   const inputRef = useRef<any>();
   const { state, dispatch }: any = MainReducer();
-
-  useEffect(() => {
-    CometChat.login(uid, authKey).then(
-      (user) => {
-        localStorage.setItem('userID', uid);
-        console.log('Login Successful:', { user });
-      },
-      (error) => {
-        console.log('Login failed with exception:', { error });
-      }
-    );
-
-    // CometChat.startCall(receiverID, 'video')
-    //   .then((call: any) => {
-    //     console.log('Call started successfully:', call);
-    //   })
-    //   .catch((error: any) => {
-    //     console.log('Error starting call:', error);
-    //   });
-  }, []);
 
   return (
     <MainContext.Provider value={{ state, dispatch }}>

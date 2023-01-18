@@ -15,6 +15,23 @@ class CometChatService {
     this.userRequestBuilder = new CometChat.UsersRequestBuilder();
   }
 
+  login = async (userID: string, name: string) => {
+    try {
+      const newUser = new CometChat.User(userID);
+      newUser.setName(name);
+      await CometChat.createUser(newUser, process.env.REACT_APP_AUTH_KEY ?? '');
+      const user = await CometChat.login(
+        userID,
+        process.env.REACT_APP_AUTH_KEY
+      );
+      console.log('User logged in:', user);
+      return user;
+    } catch (e) {
+      console.log('Failed to login:', e);
+      throw e;
+    }
+  };
+
   static startDirectCall = (element: any, id: string) => {
     let sessionID = id;
     let audioOnly = false;
