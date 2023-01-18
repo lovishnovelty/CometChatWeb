@@ -4,12 +4,14 @@ import './App.css';
 
 import { CometChat } from '@cometchat-pro/chat';
 import { CometChatService } from './services/cometchat';
+import UserList from './components/users';
 
 const authKey = 'f7a9f594219a32a8177d445f037b59f2bfe963f4';
 const uid = 'p8voz';
 
 // const callType = 'VIDEO' | 'AUDIO' | undefined;
 function App() {
+  const inputRef = useRef<any>();
   useEffect(() => {
     CometChat.login(uid, authKey).then(
       (user) => {
@@ -29,7 +31,6 @@ function App() {
     //   });
   }, []);
 
-  const inputRef = useRef<any>();
   return (
     <div style={{ width: '800px', height: '800px' }}>
       {/* <CometChatUI /> */}
@@ -44,6 +45,7 @@ function App() {
       >
         Join Call
       </button>
+      <UserList />
       <div id="callscreen" style={{ height: '100vh', width: '100vw' }}></div>
     </div>
   );
