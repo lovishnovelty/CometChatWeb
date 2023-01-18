@@ -14,8 +14,6 @@ const Messages = () => {
     cometchatService.listenForMessage({
       listenerID: 'listner_id',
       onTextMessageReceived: (text) => {
-        console.log('cc', state.user.uid, text.getSender().getUid());
-
         if (state.user.uid === text.getSender().getUid()) {
           dispatch({
             type: 'append_messages',
