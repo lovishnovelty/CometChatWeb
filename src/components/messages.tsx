@@ -47,9 +47,10 @@ const Messages = () => {
           marginBottom: 10,
           backgroundColor: 'black',
           color: 'white',
-          padding: 20,
+          padding: 10,
           borderRadius: 10,
           marginRight: 10,
+          marginLeft: 10,
         }
       : {
           alignSelf: 'flex-start',
