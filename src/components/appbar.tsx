@@ -90,7 +90,7 @@ export const ChatAppBar = ({
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
   return (
-    <div className={classes.grow}>
+    <div>
       <AppBar
         position="static"
         style={{ backgroundColor: 'black', color: 'white' }}
