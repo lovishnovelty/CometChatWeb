@@ -3,10 +3,7 @@ import { getUsers } from '../service/getUser';
 import { CometChat } from '@cometchat-pro/chat';
 
 export const UserList = () => {
-  console.log('user');
-
   const [users, setUsers] = useState<CometChat.User[]>([]);
-  console.log(users);
 
   useEffect(() => {
     getUsers().then((users) => {

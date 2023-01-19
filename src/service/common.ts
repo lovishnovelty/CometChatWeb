@@ -54,9 +54,7 @@ export const joinCall = ({
       onUserJoined,
       onUserListUpdated,
       onCallEnded,
-      onError: (error: CometChat.CometChatException) => {
-        console.log('Call Error: ', error);
-      },
+      onError: (error: CometChat.CometChatException) => {},
       // onAudioModesUpdated: (audioModes: CometChat.AudioMode[]) => {
       //   console.log('audio modes:', audioModes);
       // },

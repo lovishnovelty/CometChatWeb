@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const CallingScreen = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { sessionID, otherUserAvatar, otherUserName } = state;
+  const { sessionID, otherUserAvatar, otherUserName, isaudioOnly } = state;
   const rejectIncomingCall = (
     sessionId: string,
     callStatus = CometChat.CALL_STATUS.REJECTED

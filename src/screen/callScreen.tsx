@@ -1,24 +1,32 @@
 import { CometChat } from '@cometchat-pro/chat';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { joinCall } from '../service/common';
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CometChatService } from '../services/cometchat';
 
-export const CallScreen = ({ route }: any) => {
+export const CallScreen = () => {
   const navigate = useNavigate();
-  const { sessionID } = route.params;
-  //   const getSettings = () => {
-  //     return joinCall({
-  //       sessionID: sessionID ?? 'abc',
-  //       onCallEnded: navigate(-1),
-  //     });
-  //   };
+  const { state } = useLocation();
 
+  useEffect(() => {
+    const element = document.getElementById('test')!;
+    CometChatService.startDefaultCall(
+      element,
+      state?.sessionID,
+      state?.isaudioOnly
+    );
+  }, []);
   return (
     <div
-      id="call"
-      style={{ height: '100%', width: '100%', position: 'relative' }}
+      style={{
+        height: '100vh',
+      }}
     >
-      {/* <CometChat.CallingComponent callsettings={getSettings()} /> */}
+      <div
+        style={{
+          height: '100vh',
+        }}
+        id="test"
+      ></div>
     </div>
   );
 };

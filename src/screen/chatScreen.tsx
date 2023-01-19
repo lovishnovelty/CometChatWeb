@@ -7,7 +7,6 @@ import { CometChat } from '@cometchat-pro/chat';
 export const ChatScreen = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state, 'state');
   const initiateCall = ({
     receiverID,
     callType = CometChat.CALL_TYPE.VIDEO,
