@@ -7,6 +7,7 @@ import { ChatUtility } from '../util/chatUtility';
 import { ChatAppBar } from './appbar';
 import { CometChat } from '@cometchat-pro/chat';
 import { useNavigate } from 'react-router-dom';
+import { MdSend } from 'react-icons/md';
 
 const Messages = () => {
   const navigate = useNavigate();
@@ -186,12 +187,12 @@ const Messages = () => {
           style={{
             backgroundColor: 'black',
             color: 'white',
-            padding: 5,
+            padding: 3,
             borderRadius: 6,
           }}
           onClick={sendMessage}
         >
-          Send
+          <h3 style={{ marginRight: 4 }}>Send</h3> <MdSend />
         </Button>
       </div>
     </div>

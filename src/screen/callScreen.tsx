@@ -20,13 +20,7 @@ export const CallScreen = () => {
       style={{
         height: '100vh',
       }}
-    >
-      <div
-        style={{
-          height: '100vh',
-        }}
-        id="test"
-      ></div>
-    </div>
+      id="test"
+    ></div>
   );
 };
