@@ -19,7 +19,7 @@ import Menu from '@material-ui/core/Menu';
 // import MailIcon from '@material-ui/icons/Mail';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 // import MoreIcon from '@material-ui/icons/MoreVert';
-
+import { FaPhoneAlt, FaVideo } from 'react-icons/fa';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
@@ -108,6 +108,7 @@ export const ChatAppBar = ({
             </IconButton> */}
 
             <IconButton
+              style={{ marginRight: 5 }}
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -115,7 +116,8 @@ export const ChatAppBar = ({
               onClick={audioCall}
               color="inherit"
             >
-              <h3>call</h3>
+              <FaPhoneAlt />
+              {/* <h3>call</h3> */}
             </IconButton>
             <IconButton
               onClick={videoCall}
@@ -125,7 +127,7 @@ export const ChatAppBar = ({
               aria-haspopup="true"
               color="inherit"
             >
-              <h3>video</h3>
+              <FaVideo />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
